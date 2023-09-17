@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html lang="en" title="Coding design">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Responsive HTML Table With Purse CSS - Web Design/UI Design</title>
+    <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+/>
+
+</head>
+
+<body>
+    <main class="table">
+        <section class="table__header">
+            <h1>Liste Des Clients</h1>
+            <div class="input-group">
+                <input type="search" placeholder="Search Data...">
+                <img src="assets/images/search.png" alt="">
+            </div>
+         
+        </section>
+        <section class="table__body">
+         <button (click)="initNewHero()" type="button" class="btn btn-info">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-add" viewBox="0 0 16 16">
+                <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Zm-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/>
+                <path d="M8.256 14a4.474 4.474 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1h5.256Z"/>
+              </svg>
+              Create New Hero  
+           
+            </button>
+         
+         
+            <table>
+                <thead>
+                    <tr>
+                        <th> Id <span class="icon-arrow">&UpArrow;</span></th>
+                        <th> Nom <span class="icon-arrow">&UpArrow;</span></th>
+                        <th> Prenom <span class="icon-arrow">&UpArrow;</span></th>
+                        <th> Age<span class="icon-arrow">&UpArrow;</span></th>
+                        <th> Status <span class="icon-arrow">&UpArrow;</span></th>
+                        <th> Email <span class="icon-arrow">&UpArrow;</span></th>
+                        <th style="font-weight: bold; color: #0f12dc"> Action Modifier </th>
+                        <th style="font-weight: bold; color: #b80434"> Action Supprimer </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                 <tr *ngFor="let hero of heroes">
+                   <td>{{hero.id}}</td>
+
+                   <td> <img src="assets/images/teliologo.jpeg"alt=""> {{hero.nom}}</td>
+                   <td> {{hero.prenom}}</td>
+                   <td> {{hero.age}}</td>
+
+                   <td>
+                     <p class="status delivered">Delivered</p>
+                 </td>
+                   <td>  <strong> {{hero.email}}</strong></td>
+                   
+                   <td> 
+                    <button (click)="editHero(hero)"
+                     type="button" class="btn btn-primary" >
+                        <i class="fas fa-edit"></i> Modifier
+                      </button></td>
+                          <td>  <button (click)="deleteHero(hero)"
+                      type="button"
+                      class="btn btn-danger">
+                      <i class="fas fa-trash"></i> Supprimer
+                    </button> </td>
+                    
+                    
+                      
+                                             </tr>
+                </tbody>
+            </table>
+           
+            <app-edit-client [hero]="heroToEdit" (heroesUpdate)="updateHeroList($event)"></app-edit-client>
+        </section>
+    </main>
+</body>
+
+</html>

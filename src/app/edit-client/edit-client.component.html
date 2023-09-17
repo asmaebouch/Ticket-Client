@@ -1,0 +1,26 @@
+<div *ngIf="hero">
+<h2>{{ hero.nom}}</h2>
+<div>
+    Nom:
+    <input [(ngModel)]="hero.nom" placeholder="Nom"/>
+</div>
+<div>
+    Prenom:
+    <input [(ngModel)]="hero.prenom" placeholder="Prenom"/>
+</div>
+<div>
+    Age:
+    <input [(ngModel)]="hero.age" placeholder="Age"/>
+</div>
+<div>
+    Email:
+    <input [(ngModel)]="hero.email" placeholder="Email"/>
+</div>
+<div>
+    Mot De Passe:
+    <input [(ngModel)]="hero.mdp" placeholder="Mot De Passe"/>
+</div>
+<button (click)="updateHero(hero)" *ngIf="hero.id">Save</button>
+<button (click)="createHero(hero)" *ngIf="!hero.id">Create</button>
+
+</div>
