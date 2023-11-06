@@ -14,13 +14,17 @@ private url="Client";
 
 
   constructor(private http:HttpClient) { }
-  PATH_OF_API="http://localhost:7151/api";
+  PATH_OF_API="http://localhost:7011/api";
 
   public getSupperHeroes():Observable<SuperHero[]>{
     return this.http.get<SuperHero[]>(this.PATH_OF_API+"/Client");
   }
-  public updateHero(hero:SuperHero):Observable<SuperHero[]>{
-    return this.http.put<SuperHero[]>(this.PATH_OF_API+"/Client",hero);
+
+  public updateHero(heroId: number, client: SuperHero): Observable<SuperHero[]> {
+    const url = `${this.PATH_OF_API}/Client/${heroId}`;
+    return this.http.put<SuperHero[]>(url, JSON.stringify(client), {
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
   public createHero(hero:SuperHero):Observable<SuperHero[]>{
     return this.http.post<SuperHero[]>(this.PATH_OF_API+"/Client",hero);

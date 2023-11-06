@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Recherche</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <br>
+    <br>
+    <main class="table">
+        <section class="table__header">
+            <h1>Recherche</h1>
+          
+        </section>
+        <br>
+        <div class="input-group">
+            <form [formGroup]="loginForm" (ngSubmit)="RechercheAffectation(loginForm.value.etat)">
+                <div class="form1">
+                <label for="etat">État:</label>
+                <input formControlName="etat" type="text" id="etat" name="etat">
+                <div class="form-group">
+                    <label for="urgence">Statut du processus:</label>
+                    <select class="form-control"id="urgence" >
+                        <option value="En retard">En retard</option>
+                        <option value="En cours">En cours</option>
+                        <option value="Cloture">Cloture</option>
+      
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="date">Date Début:<span class="star">*</span></label>
+                    <input type="datetime" class="form-control" id="date"  placeholder="Date Debut"  />
+                  </div>
+                  </div>
+                  <div class="form2">
+                  <div class="form-group">
+                    <label for="date">Date Fin:<span class="star">*</span></label>
+                    <input type="datetime" class="form-control" id="date"  placeholder="Date Fin"  />
+                  </div>
+                  <div class="form-group">
+                    <label for="urgence">Statut de l'etape:</label>
+                    <select class="form-control"id="urgence" >
+                        <option value="En retard">En retard</option>
+                        <option value="En cours">En cours</option>
+                        <option value="Cloture">Cloture</option>
+      
+                    </select>
+                  </div>
+                  </div>
+                <button type="submit">Rechercher</button>
+            </form>
+            
+        </div>
+        <section class="table__body">
+
+            <table>
+                <thead>
+                    <br>
+                    <tr>
+    
+                        <th>  Numéro</th>
+                        <th> expediteur</th>
+                        <th> etat </th>
+                        <th> dateInitiation </th>
+                        <th>  dateAction </th>
+                        <th> statut_procesus  </th>
+                        <th> responsable </th>
+                        <th> qualification</th>
+                        <th> initiateur </th>
+<th>service</th>
+                       
+                        <th style="font-weight: bold; color: #0f12dc">  </th>
+                        <th style="font-weight: bold; color: #b80434">  </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                 <tr *ngFor="let hero of heroes">
+                   
+                   <td> {{hero.id}}</td>
+                   <td> {{hero.expediteur}}</td>
+                   <td> {{hero.etat}}</td>
+                   <td> {{hero.dateInitiation}}</td>
+                   <td> {{hero.dateAction}}</td>
+                   <td> {{hero.statut_procesus}}</td>
+                   <td> {{hero.responsable}}</td>
+                   <td> {{hero.qualification}}</td>
+                   <td> {{hero.initiateur}}</td>
+                   <td> {{hero.service}}</td>
+                   
+                   
+                    
+                    
+                      
+                                             </tr>
+                </tbody>
+            </table>
+         </section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,16 @@
+.form1, .form2{
+    width:40%;
+    display:inline-block;
+    margin: 50px;
+}
+ .form1,
+ .form2 {
+  width: 47%; /* Adjust the width as needed */
+  display: inline-block;
+  vertical-align: top; /* Align forms to the top of the container */
+  margin: 10px; /* Adjust the margin as needed */
+}.form1, .form2{
+    width:40%;
+    display:inline-block;
+    margin: 50px;
+}

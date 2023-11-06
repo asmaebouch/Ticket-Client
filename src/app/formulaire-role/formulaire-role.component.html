@@ -1,0 +1,30 @@
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+<div class="container">
+
+    <div *ngIf="hero" class="hero-form-container">
+        <br>
+      <h2>Formulaire Role</h2>
+      <h2 style="color: rgb(83, 18, 196);">{{ hero.nom }}</h2>
+      <div class="form-group">
+        <label for="roleName">Nom du role:</label>
+        <input type="text" class="form-control" id="roleName" [(ngModel)]="hero.nom" placeholder="roleName" />
+      </div>
+      <button class="btn btn-primary" (click)="updateHero(hero)" *ngIf="hero.id">Modifier</button>
+
+      <div class="d-flex justify-content-between align-items-center">
+
+        <button class="btn btn-success" (click)="createHero(hero)" *ngIf="!hero.id">Enregistrer</button>
+      <button class="btn btn-primary" (click)="updateHero(hero)" *ngIf="hero.id">Modifier</button>
+
+       
+    </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>

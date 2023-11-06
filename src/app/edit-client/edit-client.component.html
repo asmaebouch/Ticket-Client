@@ -1,26 +1,28 @@
-<div *ngIf="hero">
-<h2>{{ hero.nom}}</h2>
-<div>
-    Nom:
-    <input [(ngModel)]="hero.nom" placeholder="Nom"/>
-</div>
-<div>
-    Prenom:
-    <input [(ngModel)]="hero.prenom" placeholder="Prenom"/>
-</div>
-<div>
-    Age:
-    <input [(ngModel)]="hero.age" placeholder="Age"/>
-</div>
-<div>
-    Email:
-    <input [(ngModel)]="hero.email" placeholder="Email"/>
-</div>
-<div>
-    Mot De Passe:
-    <input [(ngModel)]="hero.mdp" placeholder="Mot De Passe"/>
-</div>
-<button (click)="updateHero(hero)" *ngIf="hero.id">Save</button>
-<button (click)="createHero(hero)" *ngIf="!hero.id">Create</button>
-
-</div>
+<!--<div class="container">
+    <div *ngIf="hero" class="hero-form-container">
+      <br>
+      <h2>Formulaire client</h2>
+      <h2 style="color: rgb(83, 18, 196);">{{ hero.nom }}</h2>
+      <div class="form-group">
+        <label for="nom">Nom:</label>
+        <input type="text" class="form-control" id="nom" [(ngModel)]="hero.nom" placeholder="Nom" />
+      </div>
+    
+      <div class="form-group">
+        <label for="utilisateurAvecClientNom">Utilisateur client:</label>
+        <select [(ngModel)]="hero.utilisateurAvecClientNom" id="utilisateurAvecClientNom" name="utilisateurAvecClientNom" class="form-control">
+          <option *ngFor="let sector of sectors" [value]="sector.id">{{ sector.nom }} {{ sector.prenom }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="utilisateurDeLEntrepriseNom">Utilisateur prestige:</label>
+        <select [(ngModel)]="hero.utilisateurDeLEntrepriseNom" id="utilisateurDeLEntrepriseNom" name="utilisateurDeLEntrepriseNom" class="form-control">
+          <option *ngFor="let sector of sectors2" [value]="sector.id">{{ sector.nom }} {{ sector.prenom }}</option>
+        </select>
+      </div>
+    
+      <button class="btn btn-primary" (click)="updateHero(hero)" *ngIf="hero.id">Modifier</button>
+      <button class="btn btn-success" (click)="createHero(hero)" *ngIf="!hero.id">Enregistrer</button>
+    </div>
+  </div>
+-->

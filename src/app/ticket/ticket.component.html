@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en" title="Coding design">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Responsive HTML Table With Purse CSS - Web Design/UI Design</title>
+    <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+/>
+
+</head>
+
+<body>
+  <br>
+         <br>
+    <main class="table">
+        <section class="table__header">
+            <h1>Liste des tickets</h1>
+        </section>
+        <section class="table__body">
+            <button  type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="initNewHero()">
+                Ajouter un ticket
+              </button>
+         
+            <table>
+                <thead>
+                    <br>
+                    <tr>
+                      
+                        <th>  Numéro</th>
+                        <th> Initiateur</th>
+                        <th> Référence </th>
+                        <th> Service </th>
+                        <th> Date Sinistre </th>
+                        <th> Plateforme  </th>
+                        <th> Urgence </th>
+                        <th> Intitulé réclamation</th>
+                        <th> Réclamation </th>
+                       <th> Réclamation </th>
+
+    <th> Documents</th>                    
+                        <th style="font-weight: bold; color: #0f12dc">  </th>
+                        <th style="font-weight: bold; color: #b80434">  </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor = "let hero of  paginatedItems">
+                   <td> {{hero.id2}}</td>
+                   <td> {{hero.initiateur}}</td>
+                   <td> {{hero.reference}}</td>
+                   <td> {{hero.service}}</td>
+                   <td> {{hero.date}}</td>
+                   <td> {{hero.plateformeId}}</td>
+                   <td> {{hero.urgence}}</td>
+                   <td> {{hero.intitule_reclamation}}</td>
+                   <td> {{hero.reclamation}}</td>
+                   <td ><img [src]="createImgPath(hero.imgPath)" alt="profile picture" style="width:60px; height:60px;"></td>
+
+                   <td> 
+                   
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editRoleModal" 
+                    (click)="editHero(hero)">
+
+        
+                        <i class="fas fa-edit"></i> Modifier
+                      </button></td>
+                      <td>
+                        <button type="button" (click)="toggleRoleStatus(hero)" class="btn btn-danger" [disabled]="hero.isDisabled">
+                            <i class="fas fa-trash"></i> {{ hero.isDisabled ? 'Desactiver' : 'Activer' }}
+                        </button>
+                    </td>
+                    
+                    
+                      
+                                             </tr>
+                </tbody>
+                  <div class="button-container">
+                  <button (click)="previousPage()" [disabled]="currentPage === 1 " class="btn btn-primary" id="previousButton">Précédente</button>
+                  <button (click)="nextPage()" [disabled]="currentPage === totalPages" class="btn btn-primary" id="nextButton">Suivante</button>
+                </div>
+            </table>
+         
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                        
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Formulaire réclamation </h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+            <div class="modal-body">
+              <form [formGroup]="signUpForm">
+                  <div *ngIf="hero" >
+                      
+                    <div class="form-group">
+                        <label for="initiateur">Initiateur:</label>
+                        <input type="text" class="form-control" id="initiateur" [(ngModel)]="hero.initiateur"[ngModelOptions]="{standalone: true}" placeholder="Initiateur" />
+                      </div>  
+                      <div class="form-group">
+                        <label for="reference">Référence:</label>
+                        <input type="text" class="form-control" id="reference" [(ngModel)]="hero.reference"[ngModelOptions]="{standalone: true}" placeholder="Reference" />
+                
+        
+                      <div class="form-group">
+                        <label for="serviceId">Service</label>
+                        <select [(ngModel)]="serviceId" [ngModelOptions]="{standalone: true}"id="serviceId" name="serviceId" class="form-control">
+                          <option *ngFor="let role of sectors" [value]="role.id">{{ role.nomService  }}</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="date">Date Sinistre:</label>
+                        <input type="date" class="form-control" id="date" [(ngModel)]="hero.date"[ngModelOptions]="{standalone: true}" placeholder="Date_Sinistre" />
+                     
+                        <div class="form-group">
+                          <label for="plateformeId">Plateforme</label>
+                          <select [(ngModel)]="selectedPlateforme" [ngModelOptions]="{standalone: true}" (change)="onPlatformChange()" id="plateformeId" name="plateformeId" class="form-control">
+                            <option *ngFor="let role of sectors3" [value]="role?.id">{{ role?.nomPlateforme }}</option>
+                        </select>
+                        
+                          
+                        </div> 
+                      <div class="form-group">
+                        <label for="urgence">Urgence(*):</label>
+                        <select class="form-control" id="urgence" [(ngModel)]="hero.urgence" [ngModelOptions]="{standalone: true}">
+                            <option value="Faible">Faible</option>
+                            <option value="Moyenne">Moyenne</option>
+                            <option value="Haute">Haute</option>
+
+                        </select>
+                      </div>
+                      
+                      <div class="form-group">
+                        <label for="intitule_reclamation">Intitulé réclamation:</label>
+                        <input type="text" class="form-control" id="intitule_reclamation" [(ngModel)]="hero.intitule_reclamation"[ngModelOptions]="{standalone: true}" placeholder="Intitule_rclamation" />
+                      </div>
+                      <div class="form-group">
+                        <label for="reclamation"> réclamation:</label>
+                        <input type="text" class="form-control" id="reclamation" [(ngModel)]="hero.reclamation"[ngModelOptions]="{standalone: true}" placeholder="reclamation" />
+                      </div>
+                    <div class="d-flex justify-content-between align-items-center">
+              
+                        <button class="btn btn-success" (click)="createTicket(hero)" *ngIf="!hero.id2"data-bs-dismiss="modal" aria-label="Close">Enregistrer</button>
+              
+                     
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+
+                  </form>
+                </div>
+                
+
+              </div>
+              </div>
+              </div>
+           
+
+              <div class="modal fade" id="editRoleModal" tabindex="-1" aria-labelledby="editRoleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                        
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Information réclamation </h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+            <div class="modal-body">
+              <form [formGroup]="signUpForm">
+                  <div *ngIf="hero" >
+                      <br>
+                  
+                    <h2 style="color: rgb(83, 18, 196);">{{ hero.initiateur }}</h2>
+                  
+                    <div class="form-group">
+                        <label for="initiateur">Initiateur:</label>
+                        <input type="text" class="form-control" id="initiateur" [(ngModel)]="hero.initiateur"[ngModelOptions]="{standalone: true}" placeholder="Initiateur" />
+                      </div>  
+                      <div class="form-group">
+                        <label for="reference">Référence:</label>
+                        <input type="text" class="form-control" id="reference" [(ngModel)]="hero.reference"[ngModelOptions]="{standalone: true}" placeholder="Reference" />
+                
+                      <div class="form-group">
+                        <label for="service">Service:</label>
+                        <select class="form-control" id="service" [(ngModel)]="hero.serviceId" [ngModelOptions]="{standalone: true}">
+                            <option value="Demande de digitalisation dde processus">Demande de digitalisation de processus</option>
+                            <option value="Demande de site collaboratif">Demande de site collaboratif</option>
+                            <option value="Fourniture Bureau">Fourniture Bureau</option>
+                            <option value="Fourniture Informatique">Fourniture Informatique</option>
+                            <option value="Himaya حماية">Himaya حماية</option>
+                            <option value="Morassalate مراسلات">Morassalate مراسلات</option>
+                            <option value="Transferts Budgetaires">Transferts Budgetaires</option>
+
+                        </select>
+                      </div>
+                      
+                      <div class="form-group">
+                        <label for="date">Date Sinistre:</label>
+                        <input type="date" class="form-control" id="date" [(ngModel)]="hero.date"[ngModelOptions]="{standalone: true}" placeholder="Date_Sinistre" />
+                      </div>
+                        <div class="form-group">
+                        <label for="plateform">Plateforme(*):</label>
+                        <select class="form-control" id="plateform" [(ngModel)]="hero.plateformeId" [ngModelOptions]="{standalone: true}">
+                            <option value="Contrat de vente">Production</option>
+                            <option value="Contrat de location">Pré-production</option>
+                        </select>
+                      </div>                    
+                      <div class="form-group">
+                        <label for="urgence">Urgence(*):</label>
+                        <select class="form-control" id="urgence" [(ngModel)]="hero.urgence" [ngModelOptions]="{standalone: true}">
+                            <option value="Faible">Faible</option>
+                            <option value="Moyenne">Moyenne</option>
+                            <option value="Haute">Haute</option>
+
+                        </select>
+                      </div>
+                      
+                      <div class="form-group">
+                        <label for="intitule_reclamation">Intitulé réclamation:</label>
+                        <input type="text" class="form-control" id="intitule_reclamation" [(ngModel)]="hero.intitule_reclamation"[ngModelOptions]="{standalone: true}" placeholder="Intitule_rclamation" />
+                      </div>
+                      <div class="form-group">
+                        <label for="reclamation"> réclamation(*):</label>
+                        <input type="text" class="form-control" id="reclamation" [(ngModel)]="hero.reclamation"[ngModelOptions]="{standalone: true}" placeholder="reclamation" />
+                      </div>
+                    <div class="d-flex justify-content-between align-items-center">
+              
+                        <button class="btn btn-success" (click)="updateHero(hero)" *ngIf="hero.id2"data-bs-dismiss="modal" aria-label="Close">Modifier</button>
+              
+                     
+                  </div>
+                  </div>
+                  </div>
+              
+
+                  </form>
+                </div>
+                  </div>
+                  
+                </div>
+                
+
+              </div>
+          
+              
+                
+        
+            </section>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+<div class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content -->
+    <div class="p-3">
+      <!-- Profile information -->
+      <h5> Profile</h5>
+      <p><strong>Nom:</strong> {{family_name}}</p>
+      <p><strong>Prenom:</strong> {{given_name}}</p>
+      <p><strong>Email:</strong> {{email}}</p>
+      <a routerLink="/changermdp" style="color: blue; font-size: larger;">Changer Mot de passe</a>
+      <li class="nav-item">
+        <a (click)="logOut()" class="nav-link">
+        <p>Se deconnecter</p>
+        </a>
+        </li>
+      <!-- Add more profile information as needed -->
+      
+      <!-- Control sidebar buttons, if any -->
+    
+    </div>
+  </div>
+  

@@ -3,84 +3,159 @@
 <html lang="en" title="Coding design">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Responsive HTML Table With Purse CSS - Web Design/UI Design</title>
-    <link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Responsive HTML Table With Purse CSS - Web Design/UI Design</title>
+  <link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
 />
 
 </head>
 
 <body>
+  <br>
+  <br>
     <main class="table">
         <section class="table__header">
-            <h1>Liste Des Clients</h1>
-            <div class="input-group">
-                <input type="search" placeholder="Search Data...">
-                <img src="assets/images/search.png" alt="">
-            </div>
-         
+            <h1>Liste des clients</h1>
+          
         </section>
         <section class="table__body">
-         <button (click)="initNewHero()" type="button" class="btn btn-info">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-add" viewBox="0 0 16 16">
-                <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Zm-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/>
-                <path d="M8.256 14a4.474 4.474 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1h5.256Z"/>
-              </svg>
-              Create New Hero  
-           
-            </button>
-         
-         
+       
+            <button  type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal" 
+            (click)="initNewHero()">
+             
+                Ajouter un client
+              </button>
+         <br>
+       
+
             <table>
                 <thead>
+                    <br>
                     <tr>
-                        <th> Id <span class="icon-arrow">&UpArrow;</span></th>
-                        <th> Nom <span class="icon-arrow">&UpArrow;</span></th>
-                        <th> Prenom <span class="icon-arrow">&UpArrow;</span></th>
-                        <th> Age<span class="icon-arrow">&UpArrow;</span></th>
-                        <th> Status <span class="icon-arrow">&UpArrow;</span></th>
-                        <th> Email <span class="icon-arrow">&UpArrow;</span></th>
-                        <th style="font-weight: bold; color: #0f12dc"> Action Modifier </th>
-                        <th style="font-weight: bold; color: #b80434"> Action Supprimer </th>
+                      
+                        <th> Numéro </th>
+                        <th> Nom(*)</th>
+                        <th> Numéro Contrat Maintenance </th>
+                        <th> </th>
+                   
+                       
+                        <th style="font-weight: bold; color: #0f12dc">  </th>
+                        <th style="font-weight: bold; color: #b80434">  </th>
 
                     </tr>
                 </thead>
                 <tbody>
-                 <tr *ngFor="let hero of heroes">
-                   <td>{{hero.id}}</td>
+                  <tr *ngFor = "let hero of  paginatedItems">
+                    <td>{{hero.id}}</td>
 
-                   <td> <img src="assets/images/teliologo.jpeg"alt=""> {{hero.nom}}</td>
-                   <td> {{hero.prenom}}</td>
-                   <td> {{hero.age}}</td>
-
-                   <td>
-                     <p class="status delivered">Delivered</p>
-                 </td>
-                   <td>  <strong> {{hero.email}}</strong></td>
-                   
+                        <td>  {{hero.nomClient}}</td>
+                      <td>{{hero.numeroContratMaintenance}}</td>
+                      
                    <td> 
-                    <button (click)="editHero(hero)"
-                     type="button" class="btn btn-primary" >
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editRoleModal" 
+                    (click)="editHero(hero)" >
+
+            
                         <i class="fas fa-edit"></i> Modifier
                       </button></td>
-                          <td>  <button (click)="deleteHero(hero)"
-                      type="button"
-                      class="btn btn-danger">
-                      <i class="fas fa-trash"></i> Supprimer
-                    </button> </td>
+                      <td>
+                        <button type="button" (click)="toggleRoleStatus(hero)" class="btn btn-danger" >
+                            <i class="fas fa-trash"></i> {{ hero.isDisabled ? 'Desactiver' : 'Activer' }}
+                        </button>
+                   
+                    </td>
                     
                     
                       
-                                             </tr>
+              </tr>
                 </tbody>
+                <div class="button-container">
+                  <button (click)="previousPage()" [disabled]="currentPage === 1" class="btn btn-primary" id="previousButton">Précédente</button>
+                  <button (click)="nextPage()" [disabled]="currentPage === totalPages" class="btn btn-primary" id="nextButton">Suivante</button>
+                </div>
             </table>
+         
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                        
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Formulaire Client </h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+            <div class="modal-body">
+              <form>
+                  <div *ngIf="hero" >
+                        <div class="form-group">
+                      <label for="nomClient">Nom du client:<span class="star">*</span></label>
+                      <input type="text" class="form-control" id="nomClient" [(ngModel)]="hero.nomClient"[ngModelOptions]="{standalone: true}" placeholder="nomClient" />
+                    </div>
+                  
+                      
+                      <div class="form-group">
+                        <label for="numeroContratMaintenance">Numéro Conntrat Maintenance du client:</label>
+  <input              type="text" class="form-control" id="numeroContratMaintenance" [(ngModel)]="hero.numeroContratMaintenance" [ngModelOptions]="{standalone: true}" placeholder="numeroContratMaintenance" />
+                      </div>
+                    <div class="d-flex justify-content-between align-items-center">
+              
+                        <button class="btn btn-success" (click)="createHero(hero)" *ngIf="!hero.id" data-bs-dismiss="modal" aria-label="Close">Enregistrer</button>
+
+                     
+                  </div>
+                  </div>
+                  </form>
+                </div>
+                
+
+              </div>
+              </div>
+              </div>
            
-            <app-edit-client [hero]="heroToEdit" (heroesUpdate)="updateHeroList($event)"></app-edit-client>
-        </section>
+
+              <div class="modal fade" id="editRoleModal" tabindex="-1" aria-labelledby="editRoleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                        
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Formulaire Client </h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+            <div class="modal-body">
+              <form>
+                  <div *ngIf="hero" >
+                      <br>
+                  
+                    <h2 style="color: rgb(83, 18, 196);">{{ hero.nomClient }}</h2>
+                    <div class="form-group">
+                      <label for="nom">Nom du role:</label>
+<input              type="text" class="form-control" id="roleName" [(ngModel)]="hero.nomClient" [ngModelOptions]="{standalone: true}" placeholder="roleName" />
+                    </div>
+               
+                      <div class="form-group">
+                        <label for="numeroContratMaintenance">Numéro Contrat Maintenance du client:</label>
+  <input              type="text" class="form-control" id="numeroContratMaintenance" [(ngModel)]="hero.numeroContratMaintenance" [ngModelOptions]="{standalone: true}" placeholder="numeroContratMaintenance" />
+                      </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <button class="btn btn-primary" (click)="updateHero(hero)" *ngIf="hero.id"data-bs-dismiss="modal" aria-label="Close">Modifier</button>
+              
+                     
+                  </div>
+                  </div>
+                  </form>
+                </div>
+                
+
+              </div>
+              </div>
+              </div>
+              
+                
+        
+            </section>
     </main>
 </body>
 

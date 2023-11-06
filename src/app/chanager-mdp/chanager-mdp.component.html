@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Recherche</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <main class="table">
+        <section class="table__header">
+    <h1>Change Password</h1>
+    <br>
+    <br>
+    <form (ngSubmit)="changePassword()" #passwordForm="ngForm">
+        <div *ngIf="hero">
+        <div >
+            <label for="oldPassword">Old Password:</label>
+            <input type="password" id="oldPassword" name="oldPassword" [(ngModel)]="hero.oldPassword"[ngModelOptions]="{standalone: true}" required>
+        </div>
+        <div>
+            <label for="newPassword">New Password:</label>
+            <input type="password" id="newPassword" name="newPassword" [(ngModel)]="hero.newPassword"[ngModelOptions]="{standalone: true}" required>
+        </div>
+        <div>
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="hero.confirmPassword"[ngModelOptions]="{standalone: true}" required>
+        </div>
+        <button type="submit" >Change Password</button>
+    </div>
+    </form>
+    </section>
+    </main>
+</body>
+</html>

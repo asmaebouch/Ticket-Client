@@ -1,0 +1,69 @@
+<div class="outer">
+<div class="container">
+    <div class="row">
+        <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
+            <div class="panel border bg-white">
+                <div class="panel-heading">
+                    <img src="assets/images/logo.png" alt="Company Logo" class="img-fluid logo-image">
+<br>
+<br>
+                    <h3 class="font-weight-bold text-green">Connexion</h3>
+                    <div class="panel-body p-3">
+                       <form    [formGroup]="loginForm">
+                        <div class="form-group pt-3">
+                            <div class="input-field" [class.error]="loginForm.controls['login'].dirty && loginForm.hasError('required','login')">
+                                <span class="fa fa-user p-2"></span>
+<input formControlName="login" type="text" placeholder="login">
+                            </div>
+                        </div>
+                        <small *ngIf="loginForm.controls['login'].dirty && loginForm.hasError('required','login')" class="text-danger">*Login est obligatoire</small>
+                        <div class="form-gsroup pt-3">
+                            <div class="input-field" [class.error]="loginForm.controls['mdp'].dirty && loginForm.hasError('required','mdp')">
+                                <span class="fa fa-lock p-2"></span>
+<input formControlName="mdp" [type]="type" placeholder="mdp">
+<span (click)="hideShowPass()" class="fa {{eyeIcon}}"></span>
+                            </div>
+                        </div>
+                        <br>
+                        <small *ngIf="loginForm.controls['mdp'].dirty && loginForm.hasError('required','mdp')"class="text-danger">*Mot de passe est obligatoire</small>
+
+<div class="form-inline fr mt-4">
+    <div class="form-inline fr mt-4"> <a id="forgot" data-bs-toggle="modal" data-bs-target="#exampleModal" class="font-weight-bold">Mot de passe oublié?</a> </div>
+</div>
+<button (click)="onLogin()" [disabled]="loginForm.invalid" type="submit" class="btn btn-success btn-block mt-4 w-100">Se Connecter</button>
+
+                       </form> 
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+    </div>
+</div>
+</div>
+ <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <p class="modal-title" id="exampleModalLabel"> <span style="font-size: 25px;font-weight:700">Oublié votre mot de passe ?</span><br>
+                  <small>Veuillez fournir votre adresse e-mail, nous vous enverrons le lien de réinitialisation.</small></p>
+
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+          </div>
+
+          <div class="modal-body">
+              <div class="form-group pt-3">
+                  <div class="input-field"> <span class="fa fa-user p-2"></span> <input [(ngModel)]="resetPasswordEmail"(ngModelChange)="checkValidEmail($event)"    type="text" placeholder="Email"> </div>
+              </div>
+              <small *ngIf="!resetPasswordEmail" class="text-danger">*Email est obligatoire*</small>
+              <small *ngIf="!isValidEmail && resetPasswordEmail" class="text-danger">*Email est invalide*</small>
+
+            </div>
+          <div class="modal-footer">
+              <button type="button" id="closebtn" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" (click)="confirmToSend() "class="btn btn-primary">Envoyer</button>
+          </div>
+      </div>
+  </div>
+</div> 

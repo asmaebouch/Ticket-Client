@@ -1,0 +1,223 @@
+
+<!DOCTYPE html>
+<html lang="en" title="Coding design">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Responsive HTML Table With Purse CSS - Web Design/UI Design</title>
+    <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+/>
+
+</head>
+
+<body>
+  <br>
+  <br>
+    <main class="table">
+        <section class="table__header">
+            <h1>Liste des utilisateurs</h1>
+        
+         
+        </section>
+        <section class="table__body">
+          <button  type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="initNewHero()">
+            
+Ajouter un utilisateur           
+            </button>
+         <br>
+         <br>
+            <table>
+                <thead>
+                    <tr>
+                        <th> Numéro </th>
+                        <th> Nom</th>
+                        <th> Prenom</th>
+                        <th>Login</th>
+                        <th> Email</th>
+                        <th> Role</th>
+                        <th>  Client</th>
+                   <th></th>
+                       
+                        <th style="font-weight: bold; color: #0f12dc">  </th>
+                        <th style="font-weight: bold; color: #b80434">  </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                 <tr *ngFor = "let hero of  paginatedItems">
+                   <td>{{hero.id}}</td>
+
+                   <td> {{hero.nom}}</td>
+                   <td> {{hero.prenom}}</td>
+                   <td>{{hero.login}}</td>
+                   <td> {{hero.email}}</td>
+                   <td> {{hero.rolesUtilisateurs}}</td>
+                   <td>
+                    <span *ngIf="hero.client" class="text-green" title="Client Oui">Oui</span>
+<span *ngIf="!hero.client" class="text-red" title="Client Non">Non</span>
+
+                  </td>
+                  
+              
+                   <td> 
+                    <td>
+                     
+                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editRoleModal" 
+                      (click)="editHero(hero)">
+  
+              
+                          <i class="fas fa-edit"></i> Modifier
+                        </button></td>
+                        <td>
+                          <!--[disabled]="hero.isDisbles"-->
+                          <button type="button" (click)="toggleRoleStatus(hero)" class="btn btn-danger" >
+                            <i class="fas fa-trash"></i> {{ hero.isDisbles ? 'Desactiver' : 'Activer' }}
+                        </button>
+                      </td>
+                   
+                  
+                  
+                                             </tr>
+                </tbody>
+                <div class="button-container">
+                  <button (click)="previousPage()" [disabled]="currentPage === 1 || !hasData()" class="btn btn-primary" id="previousButton">Précédente</button>
+                  <button (click)="nextPage()" [disabled]="currentPage === totalPages || !hasData()" class="btn btn-primary" id="nextButton">Suivante</button>
+                </div>
+            </table>
+            <br>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                      
+                          <h1 class="modal-title fs-5" id="exampleModalLabel">Formulaire Role </h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+          <div class="modal-body">
+            <form [formGroup]="signUpForm" >
+              <div class="form-group pt-3">
+                  <div class="input-field" [class.error]="signUpForm.controls['nom'].dirty && signUpForm.hasError('required','nom')"> <span class="fa fa-user p-2"></span> <input formControlName="nom" type="text" placeholder="Nom"> </div>
+              </div>
+              <small *ngIf="signUpForm.controls['nom'].dirty && signUpForm.hasError('required','nom')" class="text-danger">*Nom est obligatoire *</small>
+              <div class="form-group pt-3">
+                  <div class="input-field" [class.error]="signUpForm.controls['prenom'].dirty && signUpForm.hasError('required','prenom')"> <span class="fa fa-user p-2"></span> <input formControlName="prenom" type="text" placeholder="Prenom"> </div>
+              </div>
+              <small *ngIf="signUpForm.controls['prenom'].dirty && signUpForm.hasError('required','prenom')" class="text-danger">*Prenom est obligatoire*</small>
+              <div class="form-group pt-3">
+                  <div class="input-field" [class.error]="signUpForm.controls['login'].dirty && signUpForm.hasError('required','login')"> <span class="fa fa-user p-2"></span> <input formControlName="login" type="text" placeholder="Login"> </div>
+              </div>
+              <small *ngIf="signUpForm.controls['login'].dirty && signUpForm.hasError('required','login')" class="text-danger">*login est obligatoire*</small>
+              <div class="form-group pt-3">
+                  <div class="input-field" [class.error]="signUpForm.controls['email'].dirty && signUpForm.hasError('required','email')"> <span class="fa fa-user p-2"></span> <input formControlName="email" type="text" placeholder="Email"> </div>
+              </div>
+              <small *ngIf="signUpForm.controls['email'].dirty && signUpForm.hasError('required','email')" class="text-danger">
+                *Email est obligatoire*</small>
+              <div class="form-group pt-3">
+                  <div class="input-field" 
+                  [class.error]="signUpForm.controls['mdp'].dirty && signUpForm.hasError('required','mdp')">
+                   <span class="fa fa-lock px-2"></span> 
+                    <input formControlName="mdp" [type]="type" placeholder="mdp">
+                     <button (click)="hideShowPass()" type="button" class="bg-white text-muted"> 
+                      <span class="fa {{eyeIcon}}"></span> </button>                 
+                                   </div>
+
+              </div>
+              <small *ngIf="signUpForm.controls['mdp'].dirty && signUpForm.hasError('required','mdp')" 
+              class="text-danger">*Mot de passe  est obligatoire*</small>
+
+          
+
+<div class="form-group">
+  <label for="roleId">Rôle</label>
+  <select [(ngModel)]="selectedRoleId" [ngModelOptions]="{standalone: true}" (change)="onPlatformChange()"id="roleId" name="roleId" class="form-control"multiple>
+    <option *ngFor="let role of sectors" [value]="role.id">{{ role.nom  }}</option>
+  </select>
+</div>
+<!--<div class="form-group">
+  <label for="roleId">Rôles</label>
+  <div *ngFor="let role of sectors">
+    <input
+      type="checkbox"
+      [(ngModel)]="selectedRoleId"
+      [ngModelOptions]="{ standalone: true }"
+      [value]="role.id"
+      name="roleIds"
+      [checked]="selectedRoleId.includes(role.id)"
+    />
+    {{ role.nom }}
+  </div>
+</div>-->
+
+
+<div class="form-group">
+  <label for="client">Client</label>
+  <select class="form-control" id="client" [(ngModel)]="clientId" [ngModelOptions]="{standalone: true}"(change)="onPlatformChange2()"name="client" class="form-control">
+    <option value="true">Oui</option>
+    <option value="false">Non</option>
+
+  </select>
+</div>
+
+              <button type="submit" (click)="onSignup()" class="btn btn-primary btn-block mt-4 w-100">Enregistrer</button>
+          </form>
+              </div>
+              
+
+            </div>
+            </div>
+            </div>
+         
+
+            <div class="modal fade" id="editRoleModal" tabindex="-1" aria-labelledby="editRoleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                      
+                          <h1 class="modal-title fs-5" id="exampleModalLabel">Formulaire Role </h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+          <div class="modal-body">
+            <form [formGroup]="signUpForm" >
+              <div class="form-group pt-3">
+                  <div class="input-field" [class.error]="signUpForm.controls['nom'].dirty && signUpForm.hasError('required','nom')"> <span class="fa fa-user p-2"></span> <input formControlName="nom" type="text" placeholder="Nom"> </div>
+              </div>
+              <small *ngIf="signUpForm.controls['nom'].dirty && signUpForm.hasError('required','nom')" class="text-danger">*Nom est obligatoire *</small>
+              <div class="form-group pt-3">
+                  <div class="input-field" [class.error]="signUpForm.controls['prenom'].dirty && signUpForm.hasError('required','prenom')"> <span class="fa fa-user p-2"></span> <input formControlName="prenom" type="text" placeholder="Prenom"> </div>
+              </div>
+              <small *ngIf="signUpForm.controls['prenom'].dirty && signUpForm.hasError('required','prenom')" class="text-danger">*Prenom est obligatoire*</small>
+              <div class="form-group pt-3">
+                  <div class="input-field" [class.error]="signUpForm.controls['login'].dirty && signUpForm.hasError('required','login')"> <span class="fa fa-user p-2"></span> <input formControlName="login" type="text" placeholder="Login"> </div>
+              </div>
+              <small *ngIf="signUpForm.controls['login'].dirty && signUpForm.hasError('required','login')" class="text-danger">*login est obligatoire*</small>
+              <div class="form-group pt-3">
+                  <div class="input-field" [class.error]="signUpForm.controls['email'].dirty && signUpForm.hasError('required','email')"> <span class="fa fa-user p-2"></span> <input formControlName="email" type="text" placeholder="Email"> </div>
+              </div>
+              <small *ngIf="signUpForm.controls['email'].dirty && signUpForm.hasError('required','email')" class="text-danger">
+                *Email est obligatoire*</small>
+              <div class="form-group pt-3">
+                  <div class="input-field" [class.error]="signUpForm.controls['mdp'].dirty && signUpForm.hasError('required','mdp')"> <span class="fa fa-lock px-2"></span> 
+                    <input formControlName="mdp" [type]="type" placeholder="mdp"> <button (click)="hideShowPass()" type="button" class="bg-white text-muted"> <span class="fa {{eyeIcon}}"></span> </button>                 
+                                   </div>
+              </div>
+              <small *ngIf="signUpForm.controls['mdp'].dirty && signUpForm.hasError('required','mdp')" class="text-danger">*Mot de passe  est obligatoire*</small>
+
+              <button type="submit" (click)="onSignup()" class="btn btn-primary btn-block mt-4 w-100"  aria-label="Close">Enregistrer</button>
+          </form>
+              </div>
+              
+
+            </div>
+            </div>
+            </div>
+            
+              
+                  </section>
+    </main>
+</body>
+
+</html>

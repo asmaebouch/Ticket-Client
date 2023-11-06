@@ -4,49 +4,41 @@ Responsive HTML Table With Pure CSS - Web Design/UI Design
 Code written by:
 👨🏻‍⚕️ Coding Design (Jeet Saru)
 
-> You can do whatever you want with the code. However if you love my content, you can **SUBSCRIBED** my YouTube Channel.
+> You can do whatever you want with the code. However if you love my content, you can *SUBSCRIBED* my YouTube Channel.
 
 🌎link: www.youtube.com/codingdesign 
 */
 
-* {
-    margin: 0;
-    padding: 0;
 
-    box-sizing: border-box;
-    font-family: sans-serif;
-}
-
-body {
-    min-height: 100vh;
-    background: url center / cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 /* Exemple de classes CSS */
 .btn-modifier {
     background-color: #007bff; /* Couleur de fond bleue */
     color: #fff; /* Couleur de texte blanche */
     /* Autres styles CSS si nécessaire */
   }
-  
-main.table {
+  .no-border {
+    border: none;
+    outline: none; /* Supprime également la bordure au focus */
+  }
+  main.table {
     width: 82vw;
     height: 90vh;
     background-color: #fff5;
 
-    backdrop-filter: blur(7px);
     box-shadow: 0 .4rem .8rem #0005;
-    border-radius: .8rem;
 
-    overflow: hidden;
+   
 }
-
+.star{
+    color: rgb(227, 59, 30);
+    font-size: 20px;
+    margin-left: 3px;
+    font-weight: bold;
+    }
 .table__header {
     width: 100%;
     height: 10%;
-    background-color: #fff4;
+    background-color: rgba(20, 15, 165, 0.267);
     padding: .8rem 1rem;
 
     display: flex;
@@ -249,7 +241,7 @@ thead th.active,tbody td.active {
     position: relative;
 }
 
-.export__file .export__file-btn {
+.export_file .export_file-btn {
     display: inline-block;
     width: 2rem;
     height: 2rem;
@@ -258,7 +250,7 @@ thead th.active,tbody td.active {
     transition: .2s ease-in-out;
 }
 
-.export__file .export__file-btn:hover { 
+.export_file .export_file-btn:hover { 
     background-color: #fff;
     transform: scale(1.15);
     cursor: pointer;
@@ -268,7 +260,7 @@ thead th.active,tbody td.active {
     display: none;
 }
 
-.export__file .export__file-options {
+.export_file .export_file-options {
     position: absolute;
     right: 0;
     
@@ -286,13 +278,13 @@ thead th.active,tbody td.active {
     transition: .2s;
 }
 
-.export__file input:checked + .export__file-options {
+.export_file input:checked + .export_file-options {
     opacity: 1;
     transform: scale(1);
     z-index: 100;
 }
 
-.export__file .export__file-options label{
+.export_file .export_file-options label{
     display: block;
     width: 100%;
     padding: .6rem 0;
@@ -305,18 +297,26 @@ thead th.active,tbody td.active {
     transition: .2s ease-in-out;
 }
 
-.export__file .export__file-options label:first-of-type{
+.export_file .export_file-options label:first-of-type{
     padding: 1rem 0;
     background-color: #86e49d !important;
 }
 
-.export__file .export__file-options label:hover{
+.export_file .export_file-options label:hover{
     transform: scale(1.05);
     background-color: #fff;
     cursor: pointer;
 }
-
-.export__file .export__file-options img{
+#previousButton, #nextButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #d78c23; /* Couleur de fond du bouton */
+    color: white; /* Couleur du texte */
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+  }
+.export_file .export_file-options img{
     width: 2rem;
     height: auto;
 }
